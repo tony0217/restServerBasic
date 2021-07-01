@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors')
 const DIR_PUBLIC = express.static('public');
 
+const { dbConenection } = require('../db/config')
+
 
 class Server {
 
@@ -9,6 +11,10 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
         this.userPath = '/api/user';
+
+
+        // conexion dbConenection
+        this.conectionDB()
 
         //middlewares
         this.middlewares();
@@ -20,26 +26,27 @@ class Server {
        
     }
 
+    async conectionDB(){
+        await dbConenection();
+    }
+
 
     middlewares(){
 
         //cors
         this.app.use(cors());
 
-
-        
         // parse body
         this.app.use( express.json() );
 
-    
-       //traer carptas estaticas
+        // traer carptas estaticas
         this.app.use(DIR_PUBLIC);
     }
 
     route(){
 
        // rutas user
-       this.app.use(this.userPath, require('../routes/user'));
+       this.app.use(this.userPath, require('../routes/user.route'));
 
 
     }
