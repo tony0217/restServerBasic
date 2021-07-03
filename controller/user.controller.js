@@ -21,8 +21,7 @@ const getUser = async(req, res = response) => {
         // const total = await User.countDocuments(query);
 
 
-        //forma optima
-
+        // forma optima
         const [total , user] = await Promise.all([
             User.countDocuments(query),
             User.find(query)
@@ -34,8 +33,10 @@ const getUser = async(req, res = response) => {
         
     } catch (error) {
         console.log(error);
-        throw new Error(' error en la base de datos');
-        
+        res.status(500).json({
+            msg: 'error 500 contactar con el administrador',
+       });
+          
     }
 
 
@@ -65,7 +66,10 @@ const postUser = async (req = request, res = response) => {
         
     } catch (error) {
         console.log(error);
-        throw new Error(' error en la base de datos');
+        res.status(500).json({
+            msg: 'error 500 contactar con el administrador',
+       });
+        
     }
 
 }
@@ -82,8 +86,8 @@ const putUser = async (req = request, res = response) => {
 
         //validar contra db password
         if (password) {
-        const salt = bcrypt.genSaltSync();
-        rest.password = bcrypt.hashSync(password, salt);
+            const salt = bcrypt.genSaltSync();
+            rest.password = bcrypt.hashSync(password, salt);
         }
 
         const user = await User.findByIdAndUpdate(id,rest)
@@ -95,7 +99,10 @@ const putUser = async (req = request, res = response) => {
         
     } catch (error) {
         console.log(error);
-        throw new Error(' error en la base de datos');
+        res.status(500).json({
+            msg: 'error 500 contactar con el administrador',
+       });
+        
     }
 
    
@@ -113,24 +120,24 @@ const deleteUser = async (req = request, res = response) => {
         // eliminacion fisica
         //const user = await User.findOneAndDelete({ _id: id });
 
-
-
+       
         // soft delete
-        const user = await User.findByIdAndUpdate(id,query)
+        const user = await User.findByIdAndUpdate(id,query);
+        const userAuth =  await req.userAuth; 
+
+        
 
         res.json({
-            msg: `Usuario ${user.nombre} eliminado!`
+            msg: `Usuario ${user.nombre} eliminado!`,
+            auth:userAuth
         });
         
     } catch (error) {
         console.log(error);
-        throw new Error(' error en la base de datos');
-        
+        res.status(500).json({
+            msg: 'error 500 contactar con el administrador',
+       });
     }
-
-
-
-
    
 }
 
