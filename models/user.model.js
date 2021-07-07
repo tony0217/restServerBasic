@@ -25,6 +25,7 @@ const UserSchema = Schema({
     rol:{
         type:String,
         required:true,
+        default:'USER_ROLE'
         //enum:['ADMIN_ROLE','USER_ROLE']
     },
 
@@ -37,6 +38,7 @@ const UserSchema = Schema({
         type:Boolean,
         default:false
     }
+    
 });
 
 // remover atributos de un modelo de model

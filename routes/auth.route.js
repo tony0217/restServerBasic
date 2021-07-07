@@ -5,7 +5,7 @@ const { validateFieds } = require('../middleware/validate-fields');
 const { rolValidate, emailValidate,UserExistById} = require('../helper/db-validation')
 
 
-const {login} = require('../controller/auth.controller');
+const {login ,googleSingIn} = require('../controller/auth.controller');
 
 
 const router = Router();
@@ -19,6 +19,16 @@ router.post('/', [
     validateFieds
 ],
 login);
+
+
+
+router.post('/google', [
+    check('id_token', 'El token es requerido').notEmpty(),
+    //check('rol').custom(rolValidate),
+    //check('email').custom(emailValidate),
+    validateFieds
+],
+googleSingIn);
 
 
 
