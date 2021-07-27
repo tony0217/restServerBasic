@@ -4,7 +4,7 @@ const { check } = require('express-validator');
 // middelware
 const {
     validateJWT,
-    validateFieds,
+    validateFields,
     validateAdminRole,
     validateHasRole
 } = require('../middleware');
@@ -36,7 +36,7 @@ router.post('/', [
     //check('rol').custom( (rol)=>rolValidate(rol)),
     check('rol').custom(rolValidate),
     check('email').custom(emailValidate),
-    validateFieds
+    validateFields
 ],
     postUser);
 
@@ -44,7 +44,7 @@ router.put('/:id', [
     check('id', 'No es un ID Valido').isMongoId(),
     check('id').custom(UserExistById),
     check('rol').custom(rolValidate),
-    validateFieds
+    validateFields
 ], putUser);
 
 router.delete('/:id', [
@@ -53,7 +53,7 @@ router.delete('/:id', [
     validateHasRole('VACA_ROLE', 'WAKAMOLE_ROLE'),
     check('id', 'No es un ID Valido').isMongoId(),
     check('id').custom(UserExistById),
-    validateFieds
+    validateFields
 ], deleteUser);
 
 router.patch('/', patchUser);

@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { validateFieds } = require('../middleware/validate-fields');
+const { validateFields } = require('../middleware/validate-fields');
 
 const { rolValidate, emailValidate,UserExistById} = require('../helper/db-validation')
 
@@ -16,7 +16,7 @@ router.post('/', [
    
     //check('rol').custom(rolValidate),
    // check('email').custom(emailValidate),
-    validateFieds
+    validateFields
 ],
 login);
 
@@ -26,7 +26,7 @@ router.post('/google', [
     check('id_token', 'El token es requerido').notEmpty(),
     //check('rol').custom(rolValidate),
     //check('email').custom(emailValidate),
-    validateFieds
+    validateFields
 ],
 googleSingIn);
 

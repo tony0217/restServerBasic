@@ -1,10 +1,12 @@
 
 const  validateJWT = require('../middleware/validate-jwt');
-const  validateFieds = require('../middleware/validate-fields');
+const  validateFields = require('../middleware/validate-fields');
 const  validateRole = require('../middleware/validate-rol');
+const  validareCategory = require('../middleware/validate-category');
 
 module.exports = {
     ...validateJWT,
-    ...validateFieds,
-    ...validateRole
+    ...validateFields,
+    ...validateRole,
+    ...validareCategory
 }

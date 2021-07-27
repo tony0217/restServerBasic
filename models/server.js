@@ -10,8 +10,15 @@ class Server {
     constructor(){
         this.app = express();
         this.port = process.env.PORT;
-        this.authPath = '/api/auth';
-        this.userPath = '/api/user';
+     
+
+        this.patch = {
+            auth:'/api/auth',
+            search: '/api/search',
+            category:'/api/category',
+            product: '/api/product',
+            user: '/api/user'
+        }
 
 
         // conexion dbConenection
@@ -47,10 +54,19 @@ class Server {
     route(){
 
        //rutas auth
-       this.app.use(this.authPath, require('../routes/auth.route'));
-       // rutas user
-       this.app.use(this.userPath, require('../routes/user.route'));
+       this.app.use(this.patch.auth, require('../routes/auth.route'));
 
+       //rutas busqueda - search
+       this.app.use(this.patch.search, require('../routes/search.route'));
+       
+       //rutas category
+       this.app.use(this.patch.category, require('../routes/category.route'));
+
+       //rutas product
+       this.app.use(this.patch.product, require('../routes/product.route'));
+
+       // rutas user
+       this.app.use(this.patch.user, require('../routes/user.route'));
 
     }
 

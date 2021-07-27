@@ -1,5 +1,13 @@
-const Rol = require('../models/rol.model');
-const User = require('../models/user.model');
+// const Rol = require('../models/rol.model');
+// const User = require('../models/user.model');
+// const Category = require('../models/category.model');
+
+const {
+    Rol,
+    User,
+    Category,
+    Product
+} = require('../models');
 
 
 const rolValidate = async (rol)=>{
@@ -17,14 +25,33 @@ const emailValidate = async (email)=>{
 }
 
 
-
-
 const UserExistById = async (id)=>{
 
     //user existe
     const userExist = await User.findById(id);
     if (!userExist) throw new Error(` El usuario con el id:${id}  no existe en la DB`);
 }
+
+
+const CategoryExistById = async (id)=>{
+
+    //category existe
+    const categoryExist = await Category.findById(id);
+    if (!categoryExist) throw new Error(`La categoria con el id:${id}  no existe en la DB`);
+
+    //if (!categoryExist.estado) throw new Error(` La categoria con el id:${id}  ya fue eliminada en la DB`);
+}
+
+
+
+const ProductExistById = async (id)=>{
+
+    //product existe
+    const productExist = await Product.findById(id);
+    if (!productExist) throw new Error(`El producto con el id:${id}  no existe en la DB`);
+
+}
+
 
 
 
@@ -34,5 +61,7 @@ const UserExistById = async (id)=>{
 module.exports = {
     rolValidate,
     emailValidate,
-    UserExistById
+    UserExistById,
+    CategoryExistById,
+    ProductExistById
 };

@@ -22,7 +22,7 @@ const validateJWT = async (req, res = response, next) => {
        const {uid} = jwt.verify(token, process.env.PRIVATEKEY);
        req.uid = uid;
 
-
+        //buscar usuario
        const userAuth = await User.findOne({'_id':uid});
 
        // usuario auth no existe en db
@@ -39,6 +39,7 @@ const validateJWT = async (req, res = response, next) => {
             });
         }
 
+        //asigna user en la req para pasarlo por referencia
        req.userAuth = userAuth;
        //console.log('userAut--->',userAuth);
 

@@ -6,7 +6,6 @@ const bcrypt = require('bcrypt');
 
 const getUser = async(req, res = response) => {
 
-
     try {
 
         // query params
@@ -38,9 +37,6 @@ const getUser = async(req, res = response) => {
        });
           
     }
-
-
-  
 
 
 }
