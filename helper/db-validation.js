@@ -29,7 +29,13 @@ const UserExistById = async (id)=>{
 
     //user existe
     const userExist = await User.findById(id);
-    if (!userExist) throw new Error(` El usuario con el id:${id}  no existe en la DB`);
+    return new Promise((resolve,reject) =>{
+        if (!userExist) {
+          reject(`El usuario con el id:${id} no existe en la DB`);
+        }
+        resolve(userExist);
+    });
+    //if (!userExist) throw new Error(` El usuario con el id:${id}  no existe en la DB`);
 }
 
 
@@ -48,10 +54,25 @@ const ProductExistById = async (id)=>{
 
     //product existe
     const productExist = await Product.findById(id);
-    if (!productExist) throw new Error(`El producto con el id:${id}  no existe en la DB`);
+    return new Promise((resolve,reject) =>{
+        if (!productExist) {
+          reject(`El producto con el id:${id}  no existe en la DB`);
+        }
+        resolve(productExist);
+    });
+
+    //if (!productExist) throw new Error(`El producto con el id:${id}  no existe en la DB`);
 
 }
 
+const collectionValidate = (collection = '', collectionValid = [])=>{
+
+    if (!collectionValid.includes(collection)) 
+    throw new Error(`la coleccion :${collection}  no esta permitida, intentar con ${collectionValid}`);
+
+    return true;
+
+}
 
 
 
@@ -63,5 +84,6 @@ module.exports = {
     emailValidate,
     UserExistById,
     CategoryExistById,
-    ProductExistById
+    ProductExistById,
+    collectionValidate
 };

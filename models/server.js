@@ -1,4 +1,5 @@
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const cors = require('cors')
 const DIR_PUBLIC = express.static('public');
 
@@ -17,7 +18,8 @@ class Server {
             search: '/api/search',
             category:'/api/category',
             product: '/api/product',
-            user: '/api/user'
+            user: '/api/user',
+            uploads: '/api/uploads',
         }
 
 
@@ -28,7 +30,6 @@ class Server {
         this.middlewares();
 
 
-    
         //rutas app
         this.route();
        
@@ -49,6 +50,14 @@ class Server {
 
         // traer carptas estaticas
         this.app.use(DIR_PUBLIC);
+
+             // files upload
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/',
+            createParentPath:true
+       }));
+    
     }
 
     route(){
@@ -67,6 +76,9 @@ class Server {
 
        // rutas user
        this.app.use(this.patch.user, require('../routes/user.route'));
+
+        // rutas uploads
+       this.app.use(this.patch.uploads, require('../routes/uploads.route'));
 
     }
 

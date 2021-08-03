@@ -9,12 +9,7 @@ const {
     validateHasRole
 } = require('../middleware');
 
-
-const { CategoryExistById } = require('../helper/db-validation');
-
-const { getCategory, } = require('../controller/category.controller');
 const { search } = require('../controller/search.controller');
-
 const router = Router();
 
 
