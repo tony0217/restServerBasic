@@ -123,7 +123,7 @@ const getUploadCloudinary = async (req, res = response) => {
          console.log(collection,'result--->',model);
  
          // redireccionar las imagenes de cloudinary
-        if(model.img) return res.redirect(model.img);
+        if(model.img) return res.json({url_img:model.img});
          
 
         const pathImg = path.join(__dirname,'../assests/','no-image.jpg');
